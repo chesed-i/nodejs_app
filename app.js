@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-app.use(session({secreat: 'MySecret'}));
+app.use(session({secret: 'MySecret'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -113,7 +113,7 @@ app.get('/logout', function(req, res){
 });
 
 // set user routes
-app.get('/user/new', function(req, res){
+app.get('/users/new', function(req, res){
   res.render('users/new', {
                             formData : req.flash('formData')[0],
                             emailError : req.flash('emailError')[0],
@@ -213,37 +213,37 @@ app.delete('/posts/:id', function(req, res){
 }); //destroy
 
 // functinos
-function checkUserRegValidation(req, res, next){
+function checkUserRegValidation(req, res, next) {
   var isValid = true;
 
   async.waterfall(
     [function(callback) {
-      User.findeOne({email : req.body.user.email, _id : {$ne : mongoose.Types.ObjectId(req.params.id)}},
-        function(err, user){
+      User.findOne({email: req.body.user.email, _id: {$ne: mongoose.Types.ObjectId(req.params.id)}},
+        function(err,user){
           if(user){
             isValid = false;
-            req.flash("emailError", "- This email is already reistered.");
+            req.flash("emailError","- This email is already resistered.");
           }
-          callback(null, isValid);
+          callback(err, isValid);
         }
       );
-    }, function(isValid, callback){
-      User.findeOne({nickname : req.body.user.nickname, _id : {$ne : mongoose.Types.ObjectId(req.params.id)}},
-        function(err, user){
+    }, function(isValid, callback) {
+      User.findOne({nickname: req.body.user.nickname, _id: {$ne: mongoose.Types.ObjectId(req.params.id)}},
+        function(err,user){
           if(user){
             isValid = false;
-            req.flash("nicknameError", "- This nickname is already reistered.");
+            req.flash("nicknameError","- This nickname is already resistered.");
           }
-          callback(null, isValid);
+          callback(err, isValid);
         }
       );
-    }], function(err, isValid){
-      if(err) return res.json({success : "false", message : err});
+    }], function(err, isValid) {
+      if(err) return res.json({success:"false", message:err});
       if(isValid){
         return next();
-      }else{
-        req.flash("formData", req.body.user);
-        req.redirect("back");
+      } else {
+        req.flash("formData",req.body.user);
+        res.redirect("back");
       }
     }
   );
