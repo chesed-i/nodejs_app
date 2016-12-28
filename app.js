@@ -9,6 +9,7 @@ var flash = require('connect-flash');
 var async = require('async');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+//test
 
 // connect database
 mongoose.connect(process.env.MONGO_DB);
