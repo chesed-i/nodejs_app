@@ -15,11 +15,15 @@
       <div class="index">
         <a href="/posts/new"><button>New</button></a>
         <ul>
-          <li class="header">Titl<span>Data</span></li>
+          <li class="header">Titl<span>Data</span>
+            <span class="float_right">Date</span>
+            <span class="float_right">Author</span>
+          </li>
           <% data.forEach(function(e){ %>
           <li>
             <a href="/posts/<%= e._id %>"><%= e.title %></a>
-            <span><%= e.createdAt.toLocaleDateString() %></span>
+            <span class="float_right"><%= e.createdAt.toLocaleDateString() %></span>
+            <span class="float_right"><%= e.author.nickname %></span>
           </li>
           <% }) %>
         </ul>
