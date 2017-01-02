@@ -21,7 +21,7 @@ userSchema.methods.authenticate = function(password){
   return bcrypt.compareSync(password, user.password);
 }
 userSchema.methods.hash = function(password){
-    return bcrypt.hashSync(password);
+  return bcrypt.hashSync(password);
 };
 var User = mongoose.model('user', userSchema);
 
