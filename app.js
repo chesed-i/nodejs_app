@@ -1,23 +1,23 @@
 var express  = require('express');
-var app = express();
-var path = require('path');
+var app      = express();
+var path     = require('path');
 var mongoose = require('mongoose');
-var session = require('express-session');
-var flash = require('connect-flash');
-var bodyParser = require('body-parser');
+var session  = require('express-session');
+var flash    = require('connect-flash');
+var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 
-// connect database
+// database
 mongoose.connect(process.env.MONGO_DB);
 var db = mongoose.connection;
-db.once("open", function(){
-   console.log("DB connected!");
+db.once("open",function () {
+  console.log("DB connected!");
 });
-db.on("error", function(err){
-  console.log("DB ERROR : ", err);
+db.on("error",function (err) {
+  console.log("DB ERROR :", err);
 });
 
-// view setting
+// view engine
 app.set("view engine", 'ejs');
 
 // middlewares
@@ -26,10 +26,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-app.use(session({secret: 'MySecret'}));
+app.use(session({secret:'MySecret'}));
 
 // passport
-var passport = require('./config/passport')
+var passport = require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 

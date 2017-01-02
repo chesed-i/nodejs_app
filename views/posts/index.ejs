@@ -20,7 +20,7 @@
     <button class="float_left" onclick="location.href='/posts/new'">New</button>
     <% if(user) {%>
       <button class="float_right" onclick="location.href='/logout'">Logout</button>
-      <button class="float_right" onclick="location.href='/users/<%= user._id %>'">My Profile (<%= user.nickname %>)</button>
+      <!-- <button class="float_right" onclick="location.href='/users/<%= user._id %>'">My Profile (<%= user.nickname %>)</button> -->
     <% } else { %>
       <button class="float_right" onclick="location.href='/login'">Login</button>
       <button class="float_right" onclick="location.href='/users/new'">Sign Up</button>
@@ -44,7 +44,7 @@
         <tr onclick="window.location = '/posts/<%= post._id %>'">
           <td><%= post.title %></td>
           <td><%= post.getCreatedDate() %></td>
-          <td><%= post.author.nickname %></td>
+          <td><%= post.author %></td>
         </tr>
       <% }) %>
     </tbody>
